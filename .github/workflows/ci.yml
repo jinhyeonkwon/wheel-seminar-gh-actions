@@ -8,8 +8,13 @@ on:
 
 jobs:
   ci:
-    name: Test using jest
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        node-version: [16, 18, 20]
+
+    name: Node.js ${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout this repository
@@ -18,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
           cache: npm
 
       - name: Install dependencies
