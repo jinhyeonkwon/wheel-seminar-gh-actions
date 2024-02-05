@@ -10,6 +10,10 @@ jobs:
     name: Deploy to Docker Hub
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        platforms: [linux/amd64, linux/arm64]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -31,4 +35,4 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/wheel-seminar-cicd:${{ github.sha }}, ${{ secrets.DOCKERHUB_USERNAME }}/wheel-seminar-cicd:latest
-          platforms: linux/amd64, linux/arm64
+          platforms: ${{ matrix.platforms }}
