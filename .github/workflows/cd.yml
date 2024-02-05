@@ -7,7 +7,7 @@ on:
 
 jobs:
   cd:
-    name: Deploy yo Docker Hub
+    name: Deploy to Docker Hub
     runs-on: ubuntu-latest
 
     steps:
